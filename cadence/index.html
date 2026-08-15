@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadence — Your body speaks first.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C1B22;
+    --ink-soft:#5B5967;
+    --ink-faint:#9B98A6;
+    --paper:#F7F6F2;
+    --paper-raised:#FFFFFF;
+    --coral:#FF5A44;
+    --coral-deep:#E14430;
+    --coral-wash:#FFEAE6;
+    --amber:#FFB020;
+    --amber-wash:#FFF3DC;
+    --navy:#181F2B;
+    --sage:#5E8C79;
+    --sage-wash:#E6F0EB;
+    --border:#E7E4DC;
+    --shadow: 0 1px 2px rgba(24,31,43,0.04), 0 8px 24px rgba(24,31,43,0.06);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 24px 0;
+  }
+
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:11px;
+    font-family:var(--font-mono);
+    color:var(--ink-soft);
+    font-weight:500;
+    margin:0 0 10px;
+  }
+
+  /* ---------- Header ---------- */
+  header.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width:34px;height:34px;
+    border-radius:10px;
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .brand-mark svg{width:18px;height:18px;}
+  .brand-name{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:-0.01em;
+  }
+  .greeting{
+    margin-top:22px;
+  }
+  .greeting h1{
+    font-family:var(--font-display);
+    font-size:clamp(28px,4vw,40px);
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+    font-weight:600;
+  }
+  .greeting p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+  .top-actions{
+    display:flex;align-items:center;gap:14px;
+    margin-top:22px;
+  }
+  .date-chip{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .btn{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:14px;
+    border:none;
+    border-radius:100px;
+    padding:12px 20px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--navy); outline-offset:2px;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{
+    background:var(--ink);
+    color:#fff;
+  }
+  .btn-primary:hover{box-shadow:0 6px 18px rgba(24,31,43,0.25);}
+  .btn-coral{background:var(--coral); color:#fff;}
+  .btn-coral:hover{box-shadow:0 6px 18px rgba(255,90,68,0.35);}
+  .btn-ghost{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{border-color:var(--ink-soft);}
+  .btn-sm{padding:8px 14px; font-size:13px;}
+
+  /* pulse divider */
+  .pulse-divider{
+    margin:26px 0 30px;
+    width:100%;
+    height:34px;
+  }
+  .pulse-divider path{
+    fill:none;
+    stroke:var(--coral);
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:draw 2.2s ease-out forwards .2s;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+
+  /* ---------- Layout grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns: 1.65fr 1fr;
+    gap:22px;
+    align-items:start;
+  }
+  .col{display:flex; flex-direction:column; gap:22px;}
+
+  .card{
+    background:var(--paper-raised);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    box-shadow:var(--shadow);
+  }
+  .card h2{
+    font-family:var(--font-display);
+    font-size:19px;
+    margin:0 0 4px;
+    font-weight:600;
+  }
+  .card .sub{
+    color:var(--ink-soft);
+    font-size:13.5px;
+    margin:0 0 18px;
+  }
+
+  /* ---------- Check-in card ---------- */
+  .checkin-body{
+    display:grid;
+    grid-template-columns: 200px 1fr;
+    gap:28px;
+  }
+  .bodymap-wrap{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .bodymap-wrap svg{overflow:visible;}
+  .silhouette{fill:var(--paper); stroke:var(--border); stroke-width:2;}
+  .hotspot{
+    fill:var(--ink-faint);
+    fill-opacity:.35;
+    stroke:var(--paper-raised);
+    stroke-width:2;
+    cursor:pointer;
+    transition:fill .15s ease, fill-opacity .15s ease, r .15s ease;
+  }
+  .hotspot:hover{fill:var(--amber); fill-opacity:.7;}
+  .hotspot.active{fill:var(--coral); fill-opacity:1;}
+  .hotspot:focus-visible{outline:3px solid var(--navy); outline-offset:2px;}
+  .map-hint{font-size:12px; color:var(--ink-faint); text-align:center; max-width:180px;}
+
+  .region-panel{
+    min-height:34px;
+    margin-top:6px;
+  }
+  .region-panel .region-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+    display:block;
+  }
+
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--font-body);
+    font-size:13px;
+    font-weight:500;
+    padding:7px 13px;
+    border-radius:100px;
+    border:1px solid var(--border);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--ink-soft);}
+  .chip.selected{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+  .chip:focus-visible{outline:3px solid var(--navy); outline-offset:2px;}
+
+  .emotion-block{margin-top:22px;}
+  .emotion-block .eyebrow{margin-bottom:10px;}
+
+  .sliders{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px 24px;
+    margin-top:22px;
+  }
+  .slider-item label{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .slider-item output{
+    font-family:var(--font-mono);
+    color:var(--coral-deep);
+    font-weight:600;
+  }
+  input[type=range]{
+    -webkit-appearance:none;
+    width:100%;
+    height:6px;
+    border-radius:100px;
+    background:var(--border);
+    outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:18px;height:18px;
+    border-radius:50%;
+    background:var(--coral);
+    border:3px solid #fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.25);
+    cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:18px;height:18px;
+    border-radius:50%;
+    background:var(--coral);
+    border:3px solid #fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.25);
+    cursor:pointer;
+  }
+  input[type=range]:focus-visible{outline:3px solid var(--navy); outline-offset:4px;}
+
+  .checkin-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:24px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .insight-card{
+    display:none;
+    margin-top:18px;
+    background:var(--sage-wash);
+    border:1px solid #CBDFD3;
+    border-radius:14px;
+    padding:16px 18px;
+  }
+  .insight-card.show{display:block; animation:fadeUp .4s ease;}
+  .insight-card .eyebrow{color:#3E6753;}
+  .insight-card p{margin:0; font-size:13.5px; line-height:1.55; color:#2E4A3D;}
+  .insight-card p.note{margin-top:8px; font-size:12px; color:#5B8873;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .toast{
+    position:fixed;
+    bottom:26px;
+    left:50%;
+    transform:translate(-50%, 20px);
+    background:var(--ink);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:500;
+    padding:12px 20px;
+    border-radius:100px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    opacity:0;
+    pointer-events:none;
+    transition:all .25s ease;
+    z-index:50;
+  }
+  .toast.show{opacity:1; transform:translate(-50%, 0);}
+
+  /* ---------- Rhythm ring ---------- */
+  .rhythm-card{text-align:center;}
+  .ring-wrap{position:relative; width:160px; height:160px; margin:8px auto 4px;}
+  .ring-wrap svg{transform:rotate(-90deg);}
+  .ring-track{fill:none; stroke:var(--border); stroke-width:10;}
+  .ring-fill{
+    fill:none; stroke:var(--coral); stroke-width:10; stroke-linecap:round;
+    transition: stroke-dashoffset .5s ease, stroke .3s ease;
+  }
+  .ring-center{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .ring-center .score{
+    font-family:var(--font-display);
+    font-size:36px; font-weight:700;
+  }
+  .ring-center .score-label{
+    font-size:11px; color:var(--ink-soft); font-family:var(--font-mono);
+    text-transform:uppercase; letter-spacing:.08em; margin-top:2px;
+  }
+  .streak-row{
+    display:flex; justify-content:space-around;
+    margin-top:18px; padding-top:18px; border-top:1px solid var(--border);
+  }
+  .streak-item .num{font-family:var(--font-mono); font-weight:600; font-size:18px;}
+  .streak-item .lbl{font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+
+  /* ---------- Actions list ---------- */
+  .action-item{
+    display:flex; align-items:center; gap:14px;
+    padding:14px 4px;
+    border-top:1px solid var(--border);
+  }
+  .action-item:first-of-type{border-top:none;}
+  .action-check{
+    width:24px;height:24px;flex-shrink:0;
+    border-radius:7px;
+    border:2px solid var(--border);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .15s ease;
+    background:#fff;
+  }
+  .action-check svg{width:14px;height:14px; opacity:0; transition:opacity .15s ease;}
+  .action-check.done{background:var(--coral); border-color:var(--coral);}
+  .action-check.done svg{opacity:1;}
+  .action-check:focus-visible{outline:3px solid var(--navy); outline-offset:2px;}
+  .action-text{flex:1;}
+  .action-text .title{font-weight:600; font-size:14.5px;}
+  .action-text .title.done{ text-decoration:line-through; color:var(--ink-faint);}
+  .action-text .desc{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  .tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding:4px 9px;
+    border-radius:100px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .tag-mountain{background:var(--coral-wash); color:var(--coral-deep);}
+  .tag-molehill{background:var(--amber-wash); color:#9A6A00;}
+  .points{font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--sage); white-space:nowrap;}
+
+  .momentum-bar{
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .momentum-bar .label{font-size:13px; color:var(--ink-soft);}
+  .momentum-bar .value{font-family:var(--font-mono); font-weight:700; font-size:16px; color:var(--coral-deep);}
+
+  /* ---------- Mountains / Molehills ---------- */
+  .split-two{
+    display:grid; grid-template-columns:1fr 1fr; gap:22px;
+  }
+  .mountain-item{padding:14px 0; border-top:1px solid var(--border);}
+  .mountain-item:first-of-type{border-top:none; padding-top:2px;}
+  .mountain-item .row{display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:8px;}
+  .mountain-item .pct{font-family:var(--font-mono); color:var(--ink-soft); font-weight:500;}
+  .bar-track{height:7px; border-radius:100px; background:var(--border); overflow:hidden;}
+  .bar-fill{height:100%; background:linear-gradient(90deg, var(--coral), var(--amber)); border-radius:100px; transition:width .5s ease;}
+
+  .molehill-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 0; border-top:1px solid var(--border);
+  }
+  .molehill-item:first-of-type{border-top:none;}
+  .molehill-item label{font-size:14px; cursor:pointer; flex:1;}
+  .molehill-item input[type=checkbox]{
+    appearance:none; width:20px; height:20px; border-radius:6px;
+    border:2px solid var(--border); cursor:pointer; position:relative; flex-shrink:0;
+  }
+  .molehill-item input[type=checkbox]:checked{background:var(--sage); border-color:var(--sage);}
+  .molehill-item input[type=checkbox]:checked::after{
+    content:"✓"; position:absolute; inset:0; color:#fff; font-size:13px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .molehill-item input:focus-visible{outline:3px solid var(--navy); outline-offset:2px;}
+
+  /* ---------- Circle ---------- */
+  .circle-list{display:flex; flex-direction:column; gap:14px;}
+  .circle-person{display:flex; align-items:center; gap:12px;}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display); font-weight:700; font-size:14px; color:#fff;
+    flex-shrink:0;
+  }
+  .circle-person .info{flex:1;}
+  .circle-person .name{font-size:13.5px; font-weight:600;}
+  .circle-person .role{font-size:12px; color:var(--ink-soft);}
+
+  /* ---------- Evening reset ---------- */
+  .reset-field{margin-bottom:14px;}
+  .reset-field label{
+    display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .reset-field input{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px 12px;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    background:var(--paper);
+  }
+  .reset-field input:focus-visible{outline:3px solid var(--navy); outline-offset:1px;}
+
+  footer{
+    text-align:center;
+    margin-top:50px;
+    padding:26px 20px;
+    color:var(--ink-faint);
+    font-size:12.5px;
+  }
+
+  @media (max-width: 900px){
+    .grid{grid-template-columns:1fr;}
+    .checkin-body{grid-template-columns:1fr;}
+    .bodymap-wrap{flex-direction:row; justify-content:center; gap:20px;}
+    .sliders{grid-template-columns:1fr;}
+    .split-two{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    .pulse-divider path{stroke-dashoffset:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M2 12h4l2-7 4 14 3-9 2 5h5" stroke="#FF5A44" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="brand-name">Cadence</span>
+      </div>
+      <div class="greeting">
+        <h1>Good afternoon, Alex.</h1>
+        <p>Your body speaks first — here's what today's rhythm looks like.</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="date-chip" id="dateChip"></div>
+      <button class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        Plan My Day
+      </button>
+    </div>
+  </header>
+
+  <svg class="pulse-divider" viewBox="0 0 1180 34" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,17 L470,17 L490,3 L508,31 L524,17 L680,17 L698,7 L714,27 L730,17 L1180,17"/>
+  </svg>
+
+  <main class="grid">
+    <!-- LEFT COLUMN -->
+    <div class="col">
+
+      <!-- CHECK-IN -->
+      <section class="card">
+        <p class="eyebrow">Check-in · &lt; 60 seconds</p>
+        <h2>How's your body right now?</h2>
+        <p class="sub">Tap a spot on the map, then tell us what it feels like. Cadence learns your patterns over time.</p>
+
+        <div class="checkin-body">
+          <div class="bodymap-wrap">
+            <svg viewBox="0 0 200 260" width="150" height="195" role="img" aria-label="Body map for somatic check-in">
+              <circle class="silhouette" cx="100" cy="38" r="26"/>
+              <rect class="silhouette" x="88" y="60" width="24" height="16" rx="5"/>
+              <path class="silhouette" d="M62 78 Q60 76 100 76 Q140 76 138 78 L145 168 Q145 178 135 178 L65 178 Q55 178 55 168 Z"/>
+              <rect class="silhouette" x="34" y="82" width="22" height="92" rx="10"/>
+              <rect class="silhouette" x="144" y="82" width="22" height="92" rx="10"/>
+              <rect class="silhouette" x="72" y="176" width="24" height="80" rx="10"/>
+              <rect class="silhouette" x="104" y="176" width="24" height="80" rx="10"/>
+
+              <circle class="hotspot" data-region="forehead" data-label="Forehead" tabindex="0" role="button" aria-label="Forehead" cx="100" cy="28" r="9"/>
+              <circle class="hotspot" data-region="jaw" data-label="Jaw & throat" tabindex="0" role="button" aria-label="Jaw and throat" cx="100" cy="66" r="8"/>
+              <circle class="hotspot" data-region="shoulderL" data-label="Left shoulder" tabindex="0" role="button" aria-label="Left shoulder" cx="60" cy="84" r="8"/>
+              <circle class="hotspot" data-region="shoulderR" data-label="Right shoulder" tabindex="0" role="button" aria-label="Right shoulder" cx="140" cy="84" r="8"/>
+              <circle class="hotspot" data-region="chest" data-label="Chest" tabindex="0" role="button" aria-label="Chest" cx="100" cy="112" r="10"/>
+              <circle class="hotspot" data-region="stomach" data-label="Stomach" tabindex="0" role="button" aria-label="Stomach" cx="100" cy="155" r="10"/>
+              <circle class="hotspot" data-region="handL" data-label="Left hand" tabindex="0" role="button" aria-label="Left hand" cx="45" cy="178" r="7"/>
+              <circle class="hotspot" data-region="handR" data-label="Right hand" tabindex="0" role="button" aria-label="Right hand" cx="155" cy="178" r="7"/>
+            </svg>
+            <p class="map-hint">Sensations logged over time reveal your patterns.</p>
+          </div>
+
+          <div>
+            <div class="region-panel" id="regionPanel">
+              <span class="region-label">Select a region on the map to begin</span>
+              <div class="chip-row" id="sensationChips"></div>
+            </div>
+
+            <div class="emotion-block">
+              <p class="eyebrow">Emotion — what's present?</p>
+              <div class="chip-row" id="emotionChips">
+                <button class="chip" data-emotion="Calm">Calm</button>
+                <button class="chip" data-emotion="Focused">Focused</button>
+                <button class="chip" data-emotion="Grounded">Grounded</button>
+                <button class="chip" data-emotion="Energized">Energized</button>
+                <button class="chip" data-emotion="Anxious">Anxious</button>
+                <button class="chip" data-emotion="Tense">Tense</button>
+                <button class="chip" data-emotion="Overwhelmed">Overwhelmed</button>
+                <button class="chip" data-emotion="Foggy">Foggy</button>
+              </div>
+            </div>
+
+            <div class="sliders">
+              <div class="slider-item">
+                <label>Energy <output id="outEnergy">7</output></label>
+                <input type="range" id="sEnergy" min="0" max="10" value="7">
+              </div>
+              <div class="slider-item">
+                <label>Focus <output id="outFocus">6</output></label>
+                <input type="range" id="sFocus" min="0" max="10" value="6">
+              </div>
+              <div class="slider-item">
+                <label>Stress <output id="outStress">4</output></label>
+                <input type="range" id="sStress" min="0" max="10" value="4">
+              </div>
+              <div class="slider-item">
+                <label>Sleep quality <output id="outSleep">7</output></label>
+                <input type="range" id="sSleep" min="0" max="10" value="7">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkin-footer">
+          <button class="btn btn-coral" id="saveCheckin">Save check-in</button>
+          <span style="font-size:12.5px; color:var(--ink-faint);">Last saved: not yet today</span>
+        </div>
+
+        <div class="insight-card" id="insightCard">
+          <p class="eyebrow">Pattern insight · preview</p>
+          <p>Forehead pressure and shallow breathing have shown up together with "anxious" 4 of your last 5 check-ins. A short walk or 5 minutes of box breathing shifted it within 20 minutes each time.</p>
+          <p class="note">This is a preview of Cadence's pattern engine using illustrative data — real detection activates once you've logged enough check-ins.</p>
+        </div>
+      </section>
+
+      <!-- TODAY'S CADENCE -->
+      <section class="card">
+        <p class="eyebrow">AI-prioritized · updates with your check-in</p>
+        <h2>Today's Cadence</h2>
+        <p class="sub">The highest-leverage actions for where you are right now.</p>
+
+        <div id="actionList">
+          <div class="action-item" data-points="8" data-mountain="0">
+            <div class="action-check" tabindex="0" role="checkbox" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="action-text">
+              <div class="title">5-minute box breathing</div>
+              <div class="desc">Settles the nervous system before your next task</div>
+            </div>
+            <span class="tag tag-mountain">Mountain</span>
+            <span class="points">+8 pts</span>
+          </div>
+
+          <div class="action-item" data-points="10" data-mountain="3">
+            <div class="action-check" tabindex="0" role="checkbox" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="action-text">
+              <div class="title">Walk outside for 10 minutes</div>
+              <div class="desc">Raises afternoon focus & energy</div>
+            </div>
+            <span class="tag tag-mountain">Mountain</span>
+            <span class="points">+10 pts</span>
+          </div>
+
+          <div class="action-item" data-points="15" data-mountain="1">
+            <div class="action-check" tabindex="0" role="checkbox" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="action-text">
+              <div class="title">Send the invoice you've been avoiding</div>
+              <div class="desc">Advances financial stability</div>
+            </div>
+            <span class="tag tag-mountain">Mountain</span>
+            <span class="points">+15 pts</span>
+          </div>
+
+          <div class="action-item" data-points="6" data-mountain="2">
+            <div class="action-check" tabindex="0" role="checkbox" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="action-text">
+              <div class="title">Text one friend back</div>
+              <div class="desc">Small deposit into a real relationship</div>
+            </div>
+            <span class="tag tag-molehill">Molehill</span>
+            <span class="points">+6 pts</span>
+          </div>
+
+          <div class="action-item" data-points="12" data-mountain="1">
+            <div class="action-check" tabindex="0" role="checkbox" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="action-text">
+              <div class="title">Write for 20 minutes</div>
+              <div class="desc">Ships the thing you're building</div>
+            </div>
+            <span class="tag tag-molehill">Molehill</span>
+            <span class="points">+12 pts</span>
+          </div>
+        </div>
+
+        <div class="momentum-bar">
+          <span class="label">Momentum today</span>
+          <span class="value"><span id="momentumVal">0</span> pts</span>
+        </div>
+      </section>
+
+      <!-- MOUNTAINS / MOLEHILLS -->
+      <section class="split-two">
+        <div class="card">
+          <p class="eyebrow">Long-term</p>
+          <h2>Mountains</h2>
+          <div id="mountainList">
+            <div class="mountain-item">
+              <div class="row"><span>Financial stability</span><span class="pct" id="mPct0">37%</span></div>
+              <div class="bar-track"><div class="bar-fill" id="mBar0" style="width:37%"></div></div>
+            </div>
+            <div class="mountain-item">
+              <div class="row"><span>Ship the thing you're building</span><span class="pct" id="mPct1">28%</span></div>
+              <div class="bar-track"><div class="bar-fill" id="mBar1" style="width:28%"></div></div>
+            </div>
+            <div class="mountain-item">
+              <div class="row"><span>Deeper relationships</span><span class="pct" id="mPct2">44%</span></div>
+              <div class="bar-track"><div class="bar-fill" id="mBar2" style="width:44%"></div></div>
+            </div>
+            <div class="mountain-item">
+              <div class="row"><span>Steady nervous system</span><span class="pct" id="mPct3">33%</span></div>
+              <div class="bar-track"><div class="bar-fill" id="mBar3" style="width:33%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="eyebrow">Daily</p>
+          <h2>Molehills</h2>
+          <div id="molehillList">
+            <div class="molehill-item"><input type="checkbox" id="mh1"><label for="mh1">Make the bed</label></div>
+            <div class="molehill-item"><input type="checkbox" id="mh2"><label for="mh2">Drink 2 litres of water</label></div>
+            <div class="molehill-item"><input type="checkbox" id="mh3"><label for="mh3">Read 10 pages</label></div>
+            <div class="molehill-item"><input type="checkbox" id="mh4"><label for="mh4">Stretch 5 minutes</label></div>
+            <div class="molehill-item"><input type="checkbox" id="mh5"><label for="mh5">Write one gratitude note</label></div>
+            <div class="molehill-item"><input type="checkbox" id="mh6"><label for="mh6">Lights out by 10:30pm</label></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col">
+
+      <div class="card rhythm-card">
+        <p class="eyebrow">Right now</p>
+        <h2>Rhythm score</h2>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 140 140" width="160" height="160">
+            <circle class="ring-track" cx="70" cy="70" r="58"/>
+            <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="58" stroke-dasharray="364.4" stroke-dashoffset="120"/>
+          </svg>
+          <div class="ring-center">
+            <span class="score" id="scoreNum">67</span>
+            <span class="score-label" id="scoreLabel">Building</span>
+          </div>
+        </div>
+        <div class="streak-row">
+          <div class="streak-item"><div class="num">12</div><div class="lbl">day streak</div></div>
+          <div class="streak-item"><div class="num" id="momentumEcho">0</div><div class="lbl">pts today</div></div>
+          <div class="streak-item"><div class="num">↑12%</div><div class="lbl">vs yesterday</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="eyebrow">Your circle</p>
+        <h2>Support network</h2>
+        <div class="circle-list">
+          <div class="circle-person">
+            <div class="avatar" style="background:var(--coral);">SR</div>
+            <div class="info"><div class="name">Sam R. — Coach</div><div class="role">Checked in today</div></div>
+            <button class="btn btn-ghost btn-sm" data-msg="Sam R.">Message</button>
+          </div>
+          <div class="circle-person">
+            <div class="avatar" style="background:var(--navy);">DL</div>
+            <div class="info"><div class="name">Dr. Lee — Therapist</div><div class="role">Next session Fri</div></div>
+            <button class="btn btn-ghost btn-sm" data-msg="Dr. Lee">Message</button>
+          </div>
+          <div class="circle-person">
+            <div class="avatar" style="background:var(--amber);">JM</div>
+            <div class="info"><div class="name">Jordan M. — Mentor</div><div class="role">Checked in 2d ago</div></div>
+            <button class="btn btn-ghost btn-sm" data-msg="Jordan M.">Message</button>
+          </div>
+          <div class="circle-person">
+            <div class="avatar" style="background:var(--sage);">TP</div>
+            <div class="info"><div class="name">Taylor P. — Partner</div><div class="role">Checked in today</div></div>
+            <button class="btn btn-ghost btn-sm" data-msg="Taylor P.">Message</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="eyebrow">Evening</p>
+        <h2>Reset</h2>
+        <div class="reset-field">
+          <label for="rWell">What went well today?</label>
+          <input type="text" id="rWell" placeholder="I'm grateful for...">
+        </div>
+        <div class="reset-field">
+          <label for="rChallenge">What challenged you?</label>
+          <input type="text" id="rChallenge" placeholder="I noticed that...">
+        </div>
+        <div class="reset-field">
+          <label for="rFocus">Tomorrow's focus?</label>
+          <input type="text" id="rFocus" placeholder="Tomorrow, I will...">
+        </div>
+        <button class="btn btn-primary" id="saveReflection" style="width:100%; justify-content:center;">Save reflection</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    Cadence — your body speaks first. Prototype build, Phase 1.
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ---------- Date ----------
+  document.getElementById('dateChip').textContent = new Date().toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'});
+
+  // ---------- Toast ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+  }
+
+  // ---------- Body map + sensations ----------
+  const sensationsByRegion = {
+    forehead: ['Pressure','Tight','Buzzing','Foggy','Warm','Numb'],
+    jaw: ['Clenched','Tight','Dry','Numb'],
+    chest: ['Tight','Heavy','Racing','Shallow breathing','Warm','Numb'],
+    stomach: ['Knotted','Hollow','Heavy','Fluttery','Warm'],
+    shoulderL: ['Tight','Heavy','Achy'],
+    shoulderR: ['Tight','Heavy','Achy'],
+    handL: ['Restless','Cold','Numb','Shaky'],
+    handR: ['Restless','Cold','Numb','Shaky'],
+  };
+  const regionLabels = {};
+  document.querySelectorAll('.hotspot').forEach(h => regionLabels[h.dataset.region] = h.dataset.label);
+
+  const selectedSensations = {}; // region -> Set of sensations
+  const regionPanel = document.getElementById('regionPanel');
+  const sensationChipsEl = document.getElementById('sensationChips');
+  let activeRegion = null;
+
+  function renderRegionPanel(region){
+    activeRegion = region;
+    regionPanel.querySelector('.region-label').textContent = regionLabels[region] + ' — what does it feel like?';
+    sensationChipsEl.innerHTML = '';
+    const chosen = selectedSensations[region] || new Set();
+    sensationsByRegion[region].forEach(s => {
+      const chip = document.createElement('button');
+      chip.className = 'chip' + (chosen.has(s) ? ' selected' : '');
+      chip.textContent = s;
+      chip.addEventListener('click', () => {
+        if(!selectedSensations[region]) selectedSensations[region] = new Set();
+        if(selectedSensations[region].has(s)) selectedSensations[region].delete(s);
+        else selectedSensations[region].add(s);
+        renderRegionPanel(region);
+        checkPatternInsight();
+      });
+      sensationChipsEl.appendChild(chip);
+    });
+  }
+
+  document.querySelectorAll('.hotspot').forEach(spot => {
+    function activate(){
+      document.querySelectorAll('.hotspot').forEach(s => s.classList.remove('active'));
+      spot.classList.add('active');
+      renderRegionPanel(spot.dataset.region);
+    }
+    spot.addEventListener('click', activate);
+    spot.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }});
+  });
+
+  // ---------- Emotion chips ----------
+  const selectedEmotions = new Set();
+  document.querySelectorAll('#emotionChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('selected');
+      const e = chip.dataset.emotion;
+      if(selectedEmotions.has(e)) selectedEmotions.delete(e);
+      else selectedEmotions.add(e);
+      checkPatternInsight();
+    });
+  });
+
+  // ---------- Pattern insight demo ----------
+  function checkPatternInsight(){
+    const foreheadHas = selectedSensations.forehead && selectedSensations.forehead.has('Pressure');
+    const chestHas = selectedSensations.chest && selectedSensations.chest.has('Shallow breathing');
+    const anxious = selectedEmotions.has('Anxious');
+    const card = document.getElementById('insightCard');
+    if(foreheadHas && chestHas && anxious){
+      card.classList.add('show');
+    }
+  }
+
+  // ---------- Sliders + Rhythm score ----------
+  const sEnergy = document.getElementById('sEnergy');
+  const sFocus = document.getElementById('sFocus');
+  const sStress = document.getElementById('sStress');
+  const sSleep = document.getElementById('sSleep');
+  const outs = {
+    sEnergy: document.getElementById('outEnergy'),
+    sFocus: document.getElementById('outFocus'),
+    sStress: document.getElementById('outStress'),
+    sSleep: document.getElementById('outSleep'),
+  };
+  const ringFill = document.getElementById('ringFill');
+  const scoreNum = document.getElementById('scoreNum');
+  const scoreLabel = document.getElementById('scoreLabel');
+  const CIRC = 2 * Math.PI * 58;
+  ringFill.setAttribute('stroke-dasharray', CIRC.toFixed(1));
+
+  function updateRhythm(){
+    const e = +sEnergy.value, f = +sFocus.value, st = +sStress.value, sl = +sSleep.value;
+    outs.sEnergy.textContent = e;
+    outs.sFocus.textContent = f;
+    outs.sStress.textContent = st;
+    outs.sSleep.textContent = sl;
+
+    const score = Math.round(((e + f + (10 - st) + sl) / 40) * 100);
+    scoreNum.textContent = score;
+    const offset = CIRC * (1 - score / 100);
+    ringFill.style.strokeDashoffset = offset.toFixed(1);
+
+    let label = 'Low flow', color = 'var(--ink-faint)';
+    if(score >= 80){ label = 'Strong flow'; color = 'var(--coral)'; }
+    else if(score >= 60){ label = 'Steady'; color = 'var(--coral)'; }
+    else if(score >= 40){ label = 'Building'; color = 'var(--amber)'; }
+    else { label = 'Needs care'; color = 'var(--amber)'; }
+    scoreLabel.textContent = label;
+    ringFill.style.stroke = color;
+  }
+  [sEnergy, sFocus, sStress, sSleep].forEach(s => s.addEventListener('input', updateRhythm));
+  updateRhythm();
+
+  document.getElementById('saveCheckin').addEventListener('click', () => {
+    showToast('Check-in saved');
+    document.querySelector('.checkin-footer span').textContent = 'Last saved: just now';
+  });
+
+  // ---------- Actions & momentum ----------
+  let momentum = 0;
+  const mountainProgress = [37, 28, 44, 33];
+  document.querySelectorAll('.action-item').forEach(item => {
+    const check = item.querySelector('.action-check');
+    const title = item.querySelector('.title');
+    const pts = +item.dataset.points;
+    const mIdx = +item.dataset.mountain;
+    function toggle(){
+      const done = check.classList.toggle('done');
+      title.classList.toggle('done', done);
+      check.setAttribute('aria-checked', done);
+      momentum += done ? pts : -pts;
+      momentum = Math.max(0, momentum);
+      document.getElementById('momentumVal').textContent = momentum;
+      document.getElementById('momentumEcho').textContent = momentum;
+
+      if(done){
+        mountainProgress[mIdx] = Math.min(100, mountainProgress[mIdx] + 2);
+        document.getElementById('mPct'+mIdx).textContent = mountainProgress[mIdx] + '%';
+        document.getElementById('mBar'+mIdx).style.width = mountainProgress[mIdx] + '%';
+      }
+    }
+    check.addEventListener('click', toggle);
+    check.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }});
+  });
+
+  // ---------- Circle message buttons ----------
+  document.querySelectorAll('[data-msg]').forEach(btn => {
+    btn.addEventListener('click', () => showToast('Message sent to ' + btn.dataset.msg));
+  });
+
+  // ---------- Evening reset ----------
+  document.getElementById('saveReflection').addEventListener('click', () => {
+    showToast('Reflection saved');
+  });
+</script>
+
+</body>
+</html>
